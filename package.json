@@ -1,0 +1,25 @@
+{
+  "name": "relay-rsc",
+  "version": "0.0.3",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepack": "rm -rf ./dist && npm run build"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "devDependencies": {
+    "@types/react-relay": "^16.0.6",
+    "@types/relay-runtime": "^14.1.22",
+    "typescript": "^5.3.3"
+  }
+}
