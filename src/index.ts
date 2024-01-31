@@ -1,11 +1,4 @@
 import {
-  ArrayKeyType,
-  ArrayKeyTypeData,
-  KeyType,
-  KeyTypeData,
-} from "react-relay/relay-hooks/helpers";
-
-import {
   Environment,
   GraphQLTaggedNode,
   getSingularSelector,
@@ -16,8 +9,27 @@ import {
   OperationType,
   createOperationDescriptor,
   ConcreteRequest,
+  FragmentType,
 } from "relay-runtime";
 import { fetchQuery } from "relay-runtime/lib/query/fetchQueryInternal";
+
+export type KeyType<TData = unknown> = Readonly<{
+  " $data"?: TData | undefined;
+  " $fragmentSpreads": FragmentType;
+}>;
+
+export type KeyTypeData<
+  TKey extends KeyType<TData>,
+  TData = unknown
+> = Required<TKey>[" $data"];
+
+export type ArrayKeyType<TData = unknown> = ReadonlyArray<
+  KeyType<readonly TData[]> | null | undefined
+>;
+export type ArrayKeyTypeData<
+  TKey extends ArrayKeyType<TData>,
+  TData = unknown
+> = KeyTypeData<NonNullable<TKey[number]>>;
 
 export function readFragment<TKey extends KeyType>(
   fragmentInput: GraphQLTaggedNode,
